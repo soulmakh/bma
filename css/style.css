@@ -2,6 +2,9 @@
 	width: 100%;
 	/*height: 100%;*/
 }
+.plyr__controls .plyr__volume{
+	display:none !important;
+}
 body{
 	background-color: black !important;
 	margin: auto;
