@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<title>BMA POC !</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+		<meta name="viewport" content="width=device-width">
+		<link rel="icon" type="image/png" href="images/fav.png">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<link rel="stylesheet" href="https://cdn.plyr.io/2.0.12/plyr.css">
+
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+	</head>
+	<body>
+		<div class="bma-navBar">
+			<div id="navBar-container" class="left">
+		    <img src="img/logo.svg">
+				<h2>
+					Séquence 1 : Introduction
+				</h2>
+			</div>
+
+			<div id="navBar-container" class="right">
+				<h2>
+					Bonjour Jean Luc
+				</h2>
+				<img src="img/avatar.svg">
+			</div>
+		</div>
+		<div class="bma-container">
+			<div id="v1" data-type="vimeo" data-video-id="143418951"></div>
+		</div>
+
+
+		<div class="modal fade" id="myModal" >
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Question à poser ! C'est ICI </p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary">Envoyer</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+		<script src="https://cdn.plyr.io/2.0.12/plyr.js"></script>
+		<script>
+			var options = {
+				classes:{
+					plyr__play:"video-container"
+				},
+				fullscreen : {
+					enabled : false
+				}
+			};
+
+			var players = plyr.setup(options);
+			var v = players[0];
+			var modalShown = false;
+			v.on('ready', function(event) {
+			  var instance = event.detail.plyr;
+			  instance.play();
+			});
+			//players[0].play();
+			v.on('ended', function(event) {
+			  var instance = event.detail.plyr;
+			  alert("La fin de la video : On passe à la séquence/evenement suivante !")
+			});
+			v.on('timeupdate', function(event){
+				var instance = event.detail.plyr;
+				var currentTime = instance.getCurrentTime();
+				console.log("timeupdate : "+currentTime);
+				if(currentTime<9 && currentTime>=8){
+					if(!modalShown){
+						instance.pause();
+						//alert("Pause : Affichage de questions !");
+						$('#myModal').modal({focus:true, show:true});
+						modalShown = true;
+					}
+				}
+				if(currentTime>=9){
+					modalShown = false;
+				}
+			});
+
+			$('#myModal').on('hidden.bs.modal', function (e) {
+				//play video when modal is hidden
+				v.play();
+			});
+		</script>
+	</body>
+</html>
