@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>BMA POC !</title>
+		<title>BMA PoC !</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
 		<meta name="viewport" content="width=device-width">
@@ -49,6 +49,7 @@
 		        <p>Question à poser ! C'est ICI </p>
 		      </div>
 		      <div class="modal-footer">
+		      	 <button type="button" class="btn btn-primary" onclick="replayFrom(0)"><i class="glyphicon glyphicon-repeat"></i> Rejouer</button>
 		        <button type="button" class="btn btn-primary">Envoyer</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 		      </div>
@@ -111,6 +112,11 @@
 				//play video when modal is hidden
 				v.play();
 			});
+
+			function replayFrom(time){
+				v.seek(time);
+				$('#myModal').modal('hide');
+			}
 		</script>
 	</body>
 </html>
